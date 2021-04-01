@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "214527663220",
+    "project_id": "timetracker-11fa3",
+    "storage_bucket": "timetracker-11fa3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214527663220:android:dd4cf3c4b4c673b5f4c521",
+        "android_client_info": {
+          "package_name": "com.tyefu.flutter_app_time_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214527663220-po4pagpdmoapc5m8vesehj4vfet631dr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoXtCk6lV5401xl00LQrCYJfM2GZ2lDWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214527663220-po4pagpdmoapc5m8vesehj4vfet631dr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
