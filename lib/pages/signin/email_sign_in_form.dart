@@ -7,17 +7,17 @@ import 'package:flutter_app_time_tracker/pages/signin/widgets/validators.dart';
 import 'package:flutter_app_time_tracker/services/auth.dart';
 import 'package:provider/provider.dart';
 
+import 'model/email_sign_in_model.dart';
 
-enum EmailSignInFormType { signIn, register }
 
-class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidators{
+class EmailSignInFormStateful extends StatefulWidget with EmailAndPasswordValidators{
 
   @override
-  _EmailSignInFormState createState() => _EmailSignInFormState();
+  _EmailSignInFormStatefulState createState() => _EmailSignInFormStatefulState();
 }
 
 
-class _EmailSignInFormState extends State<EmailSignInForm> {
+class _EmailSignInFormStatefulState extends State<EmailSignInFormStateful> {
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
