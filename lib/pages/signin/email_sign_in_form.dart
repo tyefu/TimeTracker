@@ -7,7 +7,7 @@ import 'package:flutter_app_time_tracker/pages/signin/widgets/validators.dart';
 import 'package:flutter_app_time_tracker/services/auth.dart';
 import 'package:provider/provider.dart';
 
-import 'model/email_sign_in_model.dart';
+import 'model/email_sign_in_change_model.dart';
 
 
 class EmailSignInFormStateful extends StatefulWidget with EmailAndPasswordValidators{
