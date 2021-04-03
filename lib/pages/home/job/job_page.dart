@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_time_tracker/pages/home/job/add_job_page.dart';
+import 'package:flutter_app_time_tracker/pages/home/job/edit_job_page.dart';
+import 'package:flutter_app_time_tracker/pages/home/job/job_list_tile.dart';
 import 'package:flutter_app_time_tracker/pages/home/models/job.dart';
 import 'package:flutter_app_time_tracker/pages/signin/widgets/show_alert_dialog.dart';
 import 'package:flutter_app_time_tracker/pages/signin/widgets/show_exception_alert_dialog.dart';
@@ -35,15 +36,14 @@ class JobPage extends StatelessWidget {
     }
   }
 
-void _creteeJob(BuildContext context)async{
-    final database = Provider.of<Database>(context,listen: false);
-    await database.createJob(Job(name: 'naoto', ratePerHour: 10));
-    try{
-
-    }on FirebaseException catch(e){
-      showExceptionAlertDialog(context, title: 'Operation failed', exception: e);
+  void _creteeJob(BuildContext context) async {
+    final database = Provider.of<Database>(context, listen: false);
+    await database.setJob(Job(name: 'naoto', ratePerHour: 10));
+    try {} on FirebaseException catch (e) {
+      showExceptionAlertDialog(context,
+          title: 'Operation failed', exception: e);
     }
-}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,31 +64,34 @@ void _creteeJob(BuildContext context)async{
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-
-
-          AddJobPage.show(context);
-
+          EditJobPage.show(context);
         },
       ),
     );
   }
 
-
   Widget _buildContents(BuildContext context) {
-    // final database = Provider.of<Database>(context, listen: false);
-    // return StreamBuilder<List<Job>>(
-    //   stream: database.jobsStream(),
-    //   builder: (context,snapshot){
-    //     if(snapshot.hasData){
-    //       final jobs = snapshot.data;
-    //       final children = jobs.map((job) => Text(job.name)).toList();
-    //       return ListView(children: children,);
-    //     }
-    //     if(snapshot.hasError){
-    //       return Center(child: Text('Some error occurred'),);
-    //     }
-    //     return Center(child: CircularProgressIndicator(),);
-    //   },
-    // );
+    final database = Provider.of<Database>(context, listen: false);
+    return StreamBuilder<List<Job>>(
+      stream: database.jobsStream(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final jobs = snapshot.data;
+          final children = jobs
+              .map((job) => JobListTile(
+                    job: job,
+                    onTap: () {
+                      EditJobPage.show(context, job: job);
+                    },
+                  ))
+              .toList();
+          return ListView(children: children);
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Some error occurred'));
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    );
   }
 }
