@@ -11,6 +11,7 @@ import 'firestore_service.dart';
 abstract class Database {
   Future<void> setJob(Job job);
   Stream<List<Job>> jobsStream();
+  Future<void> deleteJob(Job job);
 }
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
@@ -30,5 +31,8 @@ class FirestoreDatabase implements Database {
     path: APIPath.jobs(uid),
     builder: (data,documentId) => Job.fromMap(data,documentId),
   );
+  Future<void> deleteJob(Job job) async{
+  _service.deleteData(path: APIPath.job(uid, job.id));
+  }
 
 }
