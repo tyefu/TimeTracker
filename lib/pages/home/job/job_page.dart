@@ -7,6 +7,10 @@ import 'package:flutter_app_time_tracker/services/auth.dart';
 import 'package:flutter_app_time_tracker/services/database.dart';
 import 'package:provider/provider.dart';
 
+import '../../../services/database.dart';
+import '../models/job.dart';
+import '../models/job.dart';
+
 class JobPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
     try {
@@ -29,17 +33,10 @@ class JobPage extends StatelessWidget {
     }
   }
 
-  void _createJob(BuildContext context) {
-    try {
-      final database = Provider.of<Database>(context, listen: false);
-      database.createJob(Job(name: 'naoto', ratePerHour: 10));
-    } on FirebaseException catch (e) {
-      if (e.code == 'permission-denied') {
-        showExceptionAlertDialog(context,
-            title: 'Operation Failed', exception: e);
-      }
-    }
-  }
+void _creteeJob(BuildContext context)async{
+    final database = Provider.of<Database>(context,listen: false);
+    await database.createJob(Job(name: 'naoto', ratePerHour: 10));
+}
 
   @override
   Widget build(BuildContext context) {
@@ -60,34 +57,18 @@ class JobPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          _createJob(context);
+
+
+          _creteeJob(context);
+
         },
       ),
     );
   }
 
+
   Widget _buildContents(BuildContext context) {
     final database = Provider.of<Database>(context, listen: false);
-    return StreamBuilder<List<Job>>(
-        stream: database.jobsStream(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final jobs = snapshot.data;
-            final children = jobs.map((job) => Text(job.name)).toList();
-            return ListView(
-              children: children,
-            );
-          }
-          if(snapshot.hasError){
-            return Center(
-              child: Text('Some error occured'),
-            );
-
-          }
-
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        });
+    return Scaffold(appBar: AppBar(),);
   }
 }
